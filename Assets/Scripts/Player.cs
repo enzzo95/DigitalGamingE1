@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public float jumpForce = 10f;
     public string opponentTag = "J2";
     public GameObject arm;
+    public Animator animator;
 
     public KeyCode left = KeyCode.A;
     public KeyCode right = KeyCode.D;
@@ -49,18 +50,23 @@ public class Player : MonoBehaviour
 
         rb.linearVelocity = new Vector2(move.x * speed, rb.linearVelocity.y);
 
-        if (isTouchingOpponent && Input.GetKeyDown(attack)) 
+        if (isTouchingOpponent && Input.GetKeyDown(attack))
         {
             Debug.Log(gameObject.tag + " collide " + opponentTag);
         }
 
-        if (Input.GetKeyDown(KeyCode.Z))
-
+        if (Input.GetKeyDown(attack))
         {
+            animator.SetBool("attack3", true);
             arm.SetActive(true);
-            Invoke("EndAttack", 1.0f);
-
+            Invoke("EndAttack", 0.5f);
+            
         }
+
+        animator.SetFloat("speed", Mathf.Abs(move.x));
+
+        if (move.x != 0)
+            transform.localScale = new Vector3(Mathf.Sign(move.x), 1, 1);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -97,9 +103,7 @@ public class Player : MonoBehaviour
     }
     void EndAttack()
     {
-
         arm.SetActive(false);
-
+        animator.SetBool("attack3", false);
     }
-
 }
