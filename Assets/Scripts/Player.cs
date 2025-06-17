@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
             move.x -= 1f;
         }
 
-        else if (Input.GetKey(right))
+        if (Input.GetKey(right))
         {
             move.x += 1f;
         }
