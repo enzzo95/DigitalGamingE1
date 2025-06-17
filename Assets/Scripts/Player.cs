@@ -1,3 +1,5 @@
+using Unity.Burst.Intrinsics;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +8,7 @@ public class Player : MonoBehaviour
     public float speed = 5f;
     public float jumpForce = 10f;
     public string opponentTag = "J2";
+    public GameObject arm;
 
     public KeyCode left = KeyCode.A;
     public KeyCode right = KeyCode.D;
@@ -50,6 +53,14 @@ public class Player : MonoBehaviour
         {
             Debug.Log(gameObject.tag + " collide " + opponentTag);
         }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+
+        {
+            arm.SetActive(true);
+            Invoke("EndAttack", 1.0f);
+
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -84,4 +95,11 @@ public class Player : MonoBehaviour
             isTouchingOpponent = false;
         }
     }
+    void EndAttack()
+    {
+
+        arm.SetActive(false);
+
+    }
+
 }
