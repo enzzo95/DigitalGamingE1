@@ -1,16 +1,13 @@
 fileFormatVersion: 2
-guid: 50e663942bcd94a49ba2b5aa24a57f59
+guid: 7660f6e622d05f545ae6031c375a0742
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2649847697073447219
-    second: Dead_0
+      213: -6717884257390833292
+    second: Shield_0
   - first:
-      213: -8293461521501190705
-    second: Dead_1
-  - first:
-      213: -1631342717326862633
-    second: Dead_2
+      213: -7947067082740497745
+    second: Shield_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,67 +103,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Dead_0
+      name: Shield_0
       rect:
         serializedVersion: 2
-        x: 25
+        x: 40
         y: 0
-        width: 49
-        height: 74
+        width: 48
+        height: 77
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 33123f4e07626c420800000000000000
-      internalID: 2649847697073447219
+      spriteID: 471d70c5cd745c2a0800000000000000
+      internalID: -6717884257390833292
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dead_1
+      name: Shield_1
       rect:
         serializedVersion: 2
-        x: 152
+        x: 168
         y: 0
-        width: 52
-        height: 58
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+        width: 48
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fc50d84dfa4b7ec80800000000000000
-      internalID: -8293461521501190705
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dead_2
-      rect:
-        serializedVersion: 2
-        x: 285
-        y: 0
-        width: 75
-        height: 10
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7d6dfca117e4c59e0800000000000000
-      internalID: -1631342717326862633
+      spriteID: fa28d07f79856b190800000000000000
+      internalID: -7947067082740497745
       vertices: []
       indices: 
       edges: []
@@ -175,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4a1853d7dc937be4d8fbe567f9ca27b5
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -185,9 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Dead_0: 2649847697073447219
-      Dead_1: -8293461521501190705
-      Dead_2: -1631342717326862633
+      Shield_0: -6717884257390833292
+      Shield_1: -7947067082740497745
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
