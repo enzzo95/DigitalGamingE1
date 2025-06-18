@@ -6,29 +6,69 @@ public class MenuManager : MonoBehaviour
 
     public GameObject Button;
 
-    public void StartGame()
+    public void StartButton()
     {
-        Debug.Log("Start Game");
         GetComponent<AudioSource>().Play();
-        Invoke("LoadScene1", 3f);
-
+        Invoke("LoadMenuMaps", 2f);
     }
     
-    public void OpenSettings()
+    public void SettingsButton()
     {
+        GetComponent<AudioSource>().Play();
         Debug.Log("Open Settings");
     }
 
-    public void ExitGame()
+    public void WaterfallButton()
     {
-        Debug.Log("Exit Game");
-        Application.Quit(); 
+        GetComponent<AudioSource>().Play();
+        Invoke("LoadMapWaterfall", 2f);
     }
 
-    public void LoadScene1()
+    public void NightButton()
     {
-        SceneManager.LoadScene("Map1");
+        GetComponent<AudioSource>().Play();
+        Invoke("LoadMapNight", 2f);
     }
+
+    public void BackButton()
+    {
+        GetComponent<AudioSource>().Play();
+        Invoke("LoadMainMenu", 2f);
+    }
+
+    public void ExitButton()
+    {
+        GetComponent<AudioSource>().Play();
+        Debug.Log("Exit Game");
+        Invoke("Quit", 2f);
+    }
+
+
+    public void LoadMapWaterfall()
+    {
+        SceneManager.LoadScene("mapWaterfall");
+    }
+
+    public void LoadMapNight()
+    {
+        SceneManager.LoadScene("mapNight");
+    }
+
+    public void LoadMenuMaps()
+    {
+        SceneManager.LoadScene("MENU2");
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MENU");
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
 }
 
     
