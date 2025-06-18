@@ -1,8 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class CountDownManager : MonoBehaviour
 {
+    public AudioSource audioSource;
+    public AudioClip fightSound;
+
     public GameObject count1;
     public GameObject count2;
     public GameObject count3;
@@ -52,6 +56,7 @@ public class CountDownManager : MonoBehaviour
 
             if (currentIndex >= listCountdown.Count && !hasUnfrozenPlayers)
             {
+                audioSource.PlayOneShot(fightSound);
                 playerP1.GetComponent<Player>().enabled = true;
                 playerP2.GetComponent<Player>().enabled = true;
                 hasUnfrozenPlayers = true;

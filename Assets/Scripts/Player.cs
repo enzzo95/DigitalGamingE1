@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
         {
             velocity.y = jumpForce;
             isOnGround = false;
-            // Arrêter le son de course et jouer le son de saut
+
             if (isRunning)
             {
                 audioSource.Stop();
@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
             isAttacking = true;
             animator.SetBool("attack3", true);
             arm.SetActive(true);
-            // Arrêter le son de course et jouer le son d'attaque
+
             if (isRunning)
             {
                 audioSource.Stop();
@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
             Invoke("EndAttack", 0.50f);
         }
 
-        // Son de course (à la fin pour éviter les conflits)
+
         if (move.x != 0 && isOnGround && !isAttacking)
         {
             if (!isRunning)
