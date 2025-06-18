@@ -140,7 +140,7 @@ MonoBehaviour:
   right: 100
   jump: 32
   attack: 101
-  playerPrefab: {fileID: 0}
+  playerPrefab: {fileID: 1829532975028679881}
 --- !u!70 &6966840353721866912
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
