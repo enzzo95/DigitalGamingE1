@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class CountDownManager : MonoBehaviour
 {
-    // Get GameObject for display countdown
-    public GameObject count1;   
+    // Get GameObject for display countdown 
+    public GameObject count1;
     public GameObject count2;
     public GameObject count3;
     public GameObject fight;
@@ -15,10 +16,13 @@ public class CountDownManager : MonoBehaviour
     private bool hasUnfrozenPlayers = false;
 
     // Initialization of variable
-    private List<GameObject> listCountdown; // Création of list for countdown object
+    private List<GameObject> listCountdown; // Crï¿½ation of list for countdown object
     private int currentIndex = 0;
     private float timer = 0f;
     private float interval = 1f;
+
+    public AudioSource audioSource;
+    public AudioClip fightSound;
 
     void Start()
     {
@@ -59,6 +63,7 @@ public class CountDownManager : MonoBehaviour
             // When the countdown is over, unfreeze the players
             if (currentIndex >= listCountdown.Count && !hasUnfrozenPlayers)
             {
+                audioSource.PlayOneShot(fightSound);
                 playerP1.GetComponent<Player>().enabled = true;
                 playerP2.GetComponent<Player>().enabled = true;
                 hasUnfrozenPlayers = true;
