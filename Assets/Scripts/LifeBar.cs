@@ -75,7 +75,7 @@ public class LifeBar : MonoBehaviour
 
             if (player != null)
             {
-                Vector2 respawnPos = new Vector2(1.5f, 0f);
+                Vector2 respawnPos = player.name.Contains("1") ? new Vector2(-1.5f, 0f) : new Vector2(1.5f, 0f);
                 GameObject newPlayerGO = Instantiate(player.playerPrefab, respawnPos, Quaternion.identity);
                 Player newPlayer = newPlayerGO.GetComponent<Player>();
                 newPlayer.setLife(20f);
