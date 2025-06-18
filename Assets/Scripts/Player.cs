@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     private bool isOnGround = false;
     private bool isTouchingOpponent = false;
     private bool isAttacking = false;
+    
+    public float life = 10f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -111,5 +113,14 @@ public class Player : MonoBehaviour
         isAttacking = false;
         arm.SetActive(false);
         animator.SetBool("attack3", false);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        life -= damage;
+        if (life <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
