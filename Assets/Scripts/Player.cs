@@ -13,35 +13,40 @@ public class Player : MonoBehaviour
     public KeyCode jump = KeyCode.Space;
     public KeyCode attack = KeyCode.E;
 
+    public AudioSource audioSource;
+    public AudioClip runSound;
+    public AudioClip jumpSound;
+    public AudioClip attackSound;
+
+    [Range(0f, 1f)] public float runVolume = 0.5f;
+    [Range(0f, 1f)] public float jumpVolume = 0.4f;
+    [Range(0f, 1f)] public float attackVolume = 0.8f;
+
     private Rigidbody2D rb;
     private bool isOnGround = false;
     private bool isTouchingOpponent = false;
     private bool isAttacking = false;
-    
-    private float life = 20f;
+    private bool isRunning = false;
 
+    private float life = 20f;
     public GameObject playerPrefab;
     private Vector2 respawnPosition;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         respawnPosition = new Vector2(1.5f, 2f);
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Vector3 move = Vector3.zero;
-
         if (!isAttacking)
         {
             if (Input.GetKey(left))
             {
                 move.x -= 1f;
             }
-
             if (Input.GetKey(right))
             {
                 move.x += 1f;
@@ -49,26 +54,59 @@ public class Player : MonoBehaviour
         }
 
         Vector2 velocity = rb.linearVelocity;
-
         if (Input.GetKeyDown(jump) && isOnGround && !isAttacking)
         {
             velocity.y = jumpForce;
             isOnGround = false;
+            // Arrêter le son de course et jouer le son de saut
+            if (isRunning)
+            {
+                audioSource.Stop();
+                isRunning = false;
+            }
+            audioSource.PlayOneShot(jumpSound, jumpVolume);
         }
 
         if (!isAttacking)
             velocity.x = move.x * speed;
         else
             velocity.x = 0;
-
         rb.linearVelocity = velocity;
 
-        if (Input.GetKeyDown(attack) && !isAttacking)
+        if (Input.GetKeyDown(attack) && !isAttacking && isOnGround)
         {
             isAttacking = true;
             animator.SetBool("attack3", true);
             arm.SetActive(true);
+            // Arrêter le son de course et jouer le son d'attaque
+            if (isRunning)
+            {
+                audioSource.Stop();
+                isRunning = false;
+            }
+            audioSource.PlayOneShot(attackSound, attackVolume);
             Invoke("EndAttack", 0.50f);
+        }
+
+        // Son de course (à la fin pour éviter les conflits)
+        if (move.x != 0 && isOnGround && !isAttacking)
+        {
+            if (!isRunning)
+            {
+                audioSource.clip = runSound;
+                audioSource.volume = runVolume;
+                audioSource.loop = true;
+                audioSource.Play();
+                isRunning = true;
+            }
+        }
+        else
+        {
+            if (isRunning)
+            {
+                audioSource.Stop();
+                isRunning = false;
+            }
         }
 
         if (move.x != 0 && !isAttacking)
@@ -92,7 +130,6 @@ public class Player : MonoBehaviour
                 }
             }
         }
-
         if (collision.gameObject.CompareTag(opponentTag))
         {
             isTouchingOpponent = true;
@@ -105,7 +142,6 @@ public class Player : MonoBehaviour
         {
             isOnGround = false;
         }
-
         if (collision.gameObject.CompareTag(opponentTag))
         {
             isTouchingOpponent = false;
@@ -125,7 +161,6 @@ public class Player : MonoBehaviour
         life -= damage;
         if (life <= 0)
         {
-
             animator.SetBool("dead", true);
             Invoke("DestroyPlayer", 0.8f);
         }
@@ -142,13 +177,13 @@ public class Player : MonoBehaviour
         animator.SetBool("getHurt", false);
     }
 
-    public float getLife() 
-    { 
-        return life; 
+    public float getLife()
+    {
+        return life;
     }
 
-    public void setLife(float value) 
-    { 
-        life = value; 
+    public void setLife(float value)
+    {
+        life = value;
     }
 }

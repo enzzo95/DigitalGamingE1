@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Main.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
@@ -14,6 +14,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Map1.unity
     guid: ef1b71a086a5e6a4b97f1cbed138ed83
+  - enabled: 1
+    path: Assets/Scenes/mapWaterfall.unity
+    guid: 6754226e01ca42d46b37545397cfc8b1
+  - enabled: 1
+    path: Assets/Scenes/MENU2.unity
+    guid: 08d25bbf44b7557438d37ef7b43122a5
+  - enabled: 1
+    path: Assets/Scenes/mapNight.unity
+    guid: 086dec2b945ab6d4ca75959e1812e1f7
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
