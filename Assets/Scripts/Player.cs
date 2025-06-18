@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
             isAttacking = true;
             animator.SetBool("attack3", true);
             arm.SetActive(true);
-            Invoke("EndAttack", 0.25f);
+            Invoke("EndAttack", 0.50f);
         }
 
         if (move.x != 0 && !isAttacking)
@@ -118,10 +118,24 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        animator.SetBool("getHurt", true);
         life -= damage;
         if (life <= 0)
         {
-            Destroy(gameObject);
+
+            animator.SetBool("dead", true);
+            Invoke("DestroyPlayer", 0.8f);
         }
+        Invoke("EndTakeDamage", 0.2f);
+    }
+
+    public void DestroyPlayer()
+    {
+        Destroy(gameObject);
+    }
+
+    public void EndTakeDamage()
+    {
+        animator.SetBool("getHurt", false);
     }
 }
