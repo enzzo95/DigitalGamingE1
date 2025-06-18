@@ -1,13 +1,15 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // Public variables for movement, animation, input keys, sounds and volumes
     public float speed = 5f;
     public float jumpForce = 10f;
-    public string opponentTag = "J2";
-    public GameObject arm;
-    public Animator animator;
+    public string opponentTag = "J2"; // Opponent identification
+    public GameObject arm;      // The arm GameObject used for attacks
+    public Animator animator;   // Animator component for animations
 
+    // Get Key for Input
     public KeyCode left = KeyCode.A;
     public KeyCode right = KeyCode.D;
     public KeyCode jump = KeyCode.Space;
@@ -22,12 +24,14 @@ public class Player : MonoBehaviour
     [Range(0f, 1f)] public float jumpVolume = 0.4f;
     [Range(0f, 1f)] public float attackVolume = 0.8f;
 
+    // Internal state tracking
     private Rigidbody2D rb;
     private bool isOnGround = false;
     private bool isTouchingOpponent = false;
     private bool isAttacking = false;
     private bool isRunning = false;
 
+    // Player health and respawn position
     private float life = 20f;
     public GameObject playerPrefab;
     private Vector2 respawnPosition;
@@ -41,12 +45,15 @@ public class Player : MonoBehaviour
     void Update()
     {
         Vector3 move = Vector3.zero;
+
+        // Handle horizontal movement input only if not attacking
         if (!isAttacking)
         {
             if (Input.GetKey(left))
             {
                 move.x -= 1f;
             }
+
             if (Input.GetKey(right))
             {
                 move.x += 1f;
@@ -54,11 +61,13 @@ public class Player : MonoBehaviour
         }
 
         Vector2 velocity = rb.linearVelocity;
+
+        // Jumping logic, plays jump sound, stops running sound if jumping
         if (Input.GetKeyDown(jump) && isOnGround && !isAttacking)
         {
             velocity.y = jumpForce;
             isOnGround = false;
-            // Arrêter le son de course et jouer le son de saut
+
             if (isRunning)
             {
                 audioSource.Stop();
@@ -67,18 +76,25 @@ public class Player : MonoBehaviour
             audioSource.PlayOneShot(jumpSound, jumpVolume);
         }
 
+        // Apply horizontal velocity unless attacking
         if (!isAttacking)
+        {
             velocity.x = move.x * speed;
+        }
+            
         else
+        {
             velocity.x = 0;
+        }
         rb.linearVelocity = velocity;
 
+        // Attack input handling, enables arm, plays sound, stops running sound
         if (Input.GetKeyDown(attack) && !isAttacking && isOnGround)
         {
             isAttacking = true;
             animator.SetBool("attack3", true);
             arm.SetActive(true);
-            // Arrêter le son de course et jouer le son d'attaque
+
             if (isRunning)
             {
                 audioSource.Stop();
@@ -88,7 +104,7 @@ public class Player : MonoBehaviour
             Invoke("EndAttack", 0.50f);
         }
 
-        // Son de course (à la fin pour éviter les conflits)
+        // Running sound management: start if moving, stop if idle or attacking
         if (move.x != 0 && isOnGround && !isAttacking)
         {
             if (!isRunning)
@@ -100,6 +116,7 @@ public class Player : MonoBehaviour
                 isRunning = true;
             }
         }
+
         else
         {
             if (isRunning)
@@ -109,14 +126,19 @@ public class Player : MonoBehaviour
             }
         }
 
+        // Flip player sprite based on movement direction if not attacking
         if (move.x != 0 && !isAttacking)
+        {
             transform.localScale = new Vector3(Mathf.Sign(move.x), 1, 1);
+        }
 
+        // Update animation parameters
         animator.SetFloat("speed", Mathf.Abs(move.x));
         animator.SetFloat("velocity", rb.linearVelocity.y);
         animator.SetBool("isOnGround", isOnGround);
     }
 
+    // Collision detection for ground and opponent
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -148,6 +170,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    // Attack ends after set duration, disables attack arm and animation
     void EndAttack()
     {
         isAttacking = false;
@@ -155,6 +178,7 @@ public class Player : MonoBehaviour
         animator.SetBool("attack3", false);
     }
 
+    // Player takes damage, triggers hurt animation and death if life â‰¤ 0
     public void TakeDamage(float damage)
     {
         animator.SetBool("getHurt", true);
@@ -167,16 +191,19 @@ public class Player : MonoBehaviour
         Invoke("EndTakeDamage", 0.2f);
     }
 
+    // Destroy player GameObject after death animation
     public void DestroyPlayer()
     {
         Destroy(gameObject);
     }
 
+    // Ends hurt animation
     public void EndTakeDamage()
     {
         animator.SetBool("getHurt", false);
     }
 
+    // Life getter and setter
     public float getLife()
     {
         return life;

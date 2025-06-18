@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ArmAttack : MonoBehaviour
 {
-    public string opponentTag = "J2";
+    public string opponentTag = "J2"; // Tag of the opponent to detect
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -16,17 +16,16 @@ public class ArmAttack : MonoBehaviour
         
     }
 
+    // Called when another collider enters this trigger collider
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Touch");
+        // Check if the collided object has the opponent tag
         if (other.CompareTag(opponentTag))
         {
-            Player player = other.GetComponent<Player>();
+            Player player = other.GetComponent<Player>(); // Get the player in contact
             if (player != null)
             {
-                Debug.Log("life before: " + player.getLife());
-                player.TakeDamage(2);
-                Debug.Log("life after: " + player.getLife());
+                player.TakeDamage(2);   // Deal damage to opponent
             }
 
             else
