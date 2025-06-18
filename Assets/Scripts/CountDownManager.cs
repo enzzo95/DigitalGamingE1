@@ -8,6 +8,10 @@ public class CountDownManager : MonoBehaviour
     public GameObject count3;
     public GameObject fight;
 
+    public GameObject playerP1;
+    public GameObject playerP2;
+    private bool hasUnfrozenPlayers = false;
+
     private List<GameObject> listCountdown;
     private int currentIndex = 0;
     private float timer = 0f;
@@ -22,6 +26,9 @@ public class CountDownManager : MonoBehaviour
             obj.SetActive(false);
 
         listCountdown[currentIndex].SetActive(true);
+
+        playerP1.GetComponent<Player>().enabled = false;
+        playerP2.GetComponent<Player>().enabled = false;
     }
 
     void Update()
@@ -41,6 +48,13 @@ public class CountDownManager : MonoBehaviour
             if (currentIndex < listCountdown.Count)
             {
                 listCountdown[currentIndex].SetActive(true);
+            }
+
+            if (currentIndex >= listCountdown.Count && !hasUnfrozenPlayers)
+            {
+                playerP1.GetComponent<Player>().enabled = true;
+                playerP2.GetComponent<Player>().enabled = true;
+                hasUnfrozenPlayers = true;
             }
 
             timer = 0f;
