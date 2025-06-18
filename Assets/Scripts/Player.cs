@@ -19,11 +19,14 @@ public class Player : MonoBehaviour
     private bool isAttacking = false;
     
     private float life = 20f;
-    public float Life => life;
+
+    public GameObject playerPrefab;
+    private Vector2 respawnPosition;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        respawnPosition = new Vector2(1.5f, 2f);
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -118,10 +121,21 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        Debug.Log("Dégâts subis !");
         life -= damage;
         if (life <= 0)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
+    }
+
+    public float getLife() 
+    { 
+        return life; 
+    }
+
+    public void setLife(float value) 
+    { 
+        life = value; 
     }
 }
