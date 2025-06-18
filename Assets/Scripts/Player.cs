@@ -18,7 +18,8 @@ public class Player : MonoBehaviour
     private bool isTouchingOpponent = false;
     private bool isAttacking = false;
     
-    public float life = 10f;
+    private float life = 20f;
+    public float Life => life;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

@@ -24,9 +24,9 @@ public class ArmAttack : MonoBehaviour
             Player player = other.GetComponent<Player>();
             if (player != null)
             {
-                Debug.Log("life before: " + player.life);
+                Debug.Log("life before: " + player.Life);
                 player.TakeDamage(2);
-                Debug.Log("life after: " + player.life);
+                Debug.Log("life after: " + player.Life);
             }
 
             else
