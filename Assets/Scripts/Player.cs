@@ -1,7 +1,4 @@
-using Unity.Burst.Intrinsics;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -19,12 +16,12 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private bool isOnGround = false;
     private bool isTouchingOpponent = false;
+    private bool isAttacking = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        Debug.Log("Start");
     }
 
     // Update is called once per frame
@@ -32,41 +29,48 @@ public class Player : MonoBehaviour
     {
         Vector3 move = Vector3.zero;
 
-        if (Input.GetKey(left))
+        if (!isAttacking)
         {
-            move.x -= 1f;
+            if (Input.GetKey(left))
+            {
+                move.x -= 1f;
+            }
+
+            if (Input.GetKey(right))
+            {
+                move.x += 1f;
+            }
         }
 
-        if (Input.GetKey(right))
-        {
-            move.x += 1f;
-        }
+        Vector2 velocity = rb.linearVelocity;
 
-        if (Input.GetKeyDown(jump) && isOnGround)
+        if (Input.GetKeyDown(jump) && isOnGround && !isAttacking)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            velocity.y = jumpForce;
             isOnGround = false;
         }
 
-        rb.linearVelocity = new Vector2(move.x * speed, rb.linearVelocity.y);
+        if (!isAttacking)
+            velocity.x = move.x * speed;
+        else
+            velocity.x = 0;
 
-        if (isTouchingOpponent && Input.GetKeyDown(attack))
-        {
-            Debug.Log(gameObject.tag + " collide " + opponentTag);
-        }
+        rb.linearVelocity = velocity;
 
-        if (Input.GetKeyDown(attack))
+        if (Input.GetKeyDown(attack) && !isAttacking)
         {
+            isAttacking = true;
             animator.SetBool("attack3", true);
             arm.SetActive(true);
-            Invoke("EndAttack", 0.5f);
-            
+            Invoke("EndAttack", 0.25f);
         }
 
-        animator.SetFloat("speed", Mathf.Abs(move.x));
-
-        if (move.x != 0)
+        if (move.x != 0 && !isAttacking)
             transform.localScale = new Vector3(Mathf.Sign(move.x), 1, 1);
+
+        animator.SetFloat("speed", Mathf.Abs(move.x));
+        animator.SetFloat("velocity", rb.linearVelocity.y);
+        animator.SetBool("isOnGround", isOnGround);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -101,8 +105,10 @@ public class Player : MonoBehaviour
             isTouchingOpponent = false;
         }
     }
+
     void EndAttack()
     {
+        isAttacking = false;
         arm.SetActive(false);
         animator.SetBool("attack3", false);
     }

@@ -2216,7 +2216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416d848e7af911948a3e9bc10b800ae5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 2
   jumpForce: 4
   opponentTag: J2
   arm: {fileID: 750499724}
