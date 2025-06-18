@@ -293,7 +293,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_Sprite: {fileID: 4723107735738678597, guid: 39b36393b8df308438a135a0b8e88fd3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.48, y: 0.82}
@@ -329,6 +329,7 @@ GameObject:
   - component: {fileID: 495771598}
   - component: {fileID: 495771597}
   - component: {fileID: 495771596}
+  - component: {fileID: 495771599}
   m_Layer: 0
   m_Name: ArmP2
   m_TagString: Untagged
@@ -437,12 +438,25 @@ Transform:
   m_GameObject: {fileID: 495771595}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7060941, w: 0.708118}
-  m_LocalPosition: {x: -0.3354, y: 0.0326, z: 0}
+  m_LocalPosition: {x: 0.3354, y: 0.0326, z: 0}
   m_LocalScale: {x: 0.0345433, y: 0.1754082, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 281369787}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -89.836}
+--- !u!114 &495771599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495771595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e3a69ebb2d19c8439140d4add8272f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  opponentTag: J1
 --- !u!1 &607771189
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,6 +513,7 @@ GameObject:
   - component: {fileID: 750499727}
   - component: {fileID: 750499726}
   - component: {fileID: 750499725}
+  - component: {fileID: 750499728}
   m_Layer: 0
   m_Name: ArmP1
   m_TagString: Untagged
@@ -613,6 +628,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1672634242}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -89.836}
+--- !u!114 &750499728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750499724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e3a69ebb2d19c8439140d4add8272f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  opponentTag: J2
 --- !u!1 &977182086
 GameObject:
   m_ObjectHideFlags: 0

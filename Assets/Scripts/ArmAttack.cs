@@ -18,9 +18,21 @@ public class ArmAttack : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Touch");
         if (other.CompareTag(opponentTag))
         {
-            Debug.Log("Arm touched " + opponentTag);
+            Player player = other.GetComponent<Player>();
+            if (player != null)
+            {
+                Debug.Log("life before: " + player.life);
+                player.TakeDamage(2);
+                Debug.Log("life after: " + player.life);
+            }
+
+            else
+            {
+                Debug.Log("Player script not found on: " + other.name);
+            }
         }
     }
 }

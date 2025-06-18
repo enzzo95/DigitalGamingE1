@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private bool isOnGround = false;
     private bool isTouchingOpponent = false;
+    
+    public float life = 10f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -50,17 +52,11 @@ public class Player : MonoBehaviour
 
         rb.linearVelocity = new Vector2(move.x * speed, rb.linearVelocity.y);
 
-        if (isTouchingOpponent && Input.GetKeyDown(attack))
-        {
-            Debug.Log(gameObject.tag + " collide " + opponentTag);
-        }
-
         if (Input.GetKeyDown(attack))
         {
             animator.SetBool("attack3", true);
             arm.SetActive(true);
             Invoke("EndAttack", 0.5f);
-            
         }
 
         animator.SetFloat("speed", Mathf.Abs(move.x));
@@ -105,5 +101,14 @@ public class Player : MonoBehaviour
     {
         arm.SetActive(false);
         animator.SetBool("attack3", false);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        life -= damage;
+        if (life <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
